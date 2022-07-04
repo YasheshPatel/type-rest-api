@@ -1,4 +1,4 @@
-# Spring Boot "type-rest-api" Example Project
+# Spring Boot "type-rest-api" Project
 
 Springboot Rest API Assessment
 
