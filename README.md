@@ -71,14 +71,19 @@ Response
 <img width="584" alt="image" src="https://user-images.githubusercontent.com/44820853/177214476-ec4250d9-d7ad-4403-a58d-9d81679d74ea.png">
 
 
-### To view OpenAPI 3 API docs
+### To view SwaggerUI API docs
 
 Run the server and browse to http://localhost:8080/swagger-ui.html
+
 <img width="1440" alt="image" src="https://user-images.githubusercontent.com/44820853/177214338-c70129f9-4af0-4af1-9424-0c8d59beca0e.png">
+
 
 ### To view H2 in-memory datbase
 
 Run the server and browse to http://localhost:8080/h2-ui
 JDBC URL: jdbc:h2:mem:iqiviadb
 Default username is 'sa' with a blank password
+
 <img width="440" alt="image" src="https://user-images.githubusercontent.com/44820853/177214214-3f212e19-44e3-47ce-9a86-3508e594b646.png">
+
+
