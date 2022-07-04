@@ -33,10 +33,9 @@ Sample Response
     }
 ]
 
+```
 <img width="1011" alt="image" src="https://user-images.githubusercontent.com/44820853/177214413-9db8fe84-5252-4df3-bf6f-7b4778a2f25c.png">
 
-
-```
 
 ### Currently it support GET Only so if we try to do insert or update a type resource
 
@@ -67,9 +66,10 @@ Response
     "status": "METHOD_NOT_ALLOWED",
     "timestamp": "2022-07-04T16:32:44.904716"
 }
-<img width="584" alt="image" src="https://user-images.githubusercontent.com/44820853/177214476-ec4250d9-d7ad-4403-a58d-9d81679d74ea.png">
 
 ```
+<img width="584" alt="image" src="https://user-images.githubusercontent.com/44820853/177214476-ec4250d9-d7ad-4403-a58d-9d81679d74ea.png">
+
 
 ### To view OpenAPI 3 API docs
 
