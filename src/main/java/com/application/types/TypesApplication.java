@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -17,16 +15,16 @@ import com.application.types.repository.TypeRepository;
 
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.info.Info;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author Yashesh Patel
  */
 
 @SpringBootApplication
+@Slf4j
 @OpenAPIDefinition(info = @Info(title="Type Rest API", version ="${application-version}", description="${application-description}"))
 public class TypesApplication implements CommandLineRunner {
-
-	private static final Logger logger = LoggerFactory.getLogger(TypesApplication.class);
 
 	private final TypeRepository typeRepository;
 
@@ -46,7 +44,7 @@ public class TypesApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		logger.info("TypesApplication.run(String... args) ==> Data Addition");
+		log.info("TypesApplication.run(String... args) ==> Data Addition");
 		loadTypes();
 	}
 
@@ -69,7 +67,7 @@ public class TypesApplication implements CommandLineRunner {
 
 		if (typeRepository.count() == 0) {
 			typeRepository.saveAll(types);
-			logger.info("TypesApplication.loadTypes() ==> Default Types Loaded");
+			log.info("TypesApplication.loadTypes() ==> Default Types Loaded");
 		}
 	}
 

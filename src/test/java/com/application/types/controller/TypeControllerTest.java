@@ -20,9 +20,9 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.application.types.TypesApplication;
 import com.application.types.dto.TypeDto;
@@ -75,10 +75,10 @@ class TypeControllerTest {
 		when(typeService.getAllTypes()).thenReturn(types);
 
 		// then
-		ResponseEntity<List<TypeDto>> types2 = typeController.getTypes();
+		List<TypeDto> types2 = typeController.getTypes();
 
 		// equal the response list size with actual list size
-		assertEquals(types.size(), types2.getBody().size());
+		assertEquals(types.size(), types2.size());
 
 	}
 
@@ -92,8 +92,8 @@ class TypeControllerTest {
 		when(typeService.getAllTypes()).thenReturn(new ArrayList<Type>());
 
 		// then
-		ResponseEntity<List<TypeDto>> types = typeController.getTypes();
-		assertEquals(0, types.getBody().size());
+		List<TypeDto> types = typeController.getTypes();
+		assertEquals(0, types.size());
 
 	}
 
@@ -104,13 +104,13 @@ class TypeControllerTest {
 		assertNotNull(typeService);
 		assertNotNull(modelMapper);
 		// when
-		when(typeService.getAllTypes()).thenThrow(NullPointerException.class);
+		when(typeService.getAllTypes()).thenThrow(ResponseStatusException.class);
 
 		// then
 
-		assertThrows(NullPointerException.class, () -> {
+		assertThrows(ResponseStatusException.class, () -> {
 			@SuppressWarnings("unused")
-			ResponseEntity<List<TypeDto>> types = typeController.getTypes();
+			List<TypeDto> types = typeController.getTypes();
 		});
 
 	}

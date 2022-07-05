@@ -1,16 +1,16 @@
 package com.application.types.controller;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.application.types.dto.TypeDto;
 import com.application.types.service.impl.TypeService;
@@ -20,6 +20,7 @@ import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * RestController to handle all REST APIs client request such as GET, POST,
@@ -28,10 +29,9 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
  * @author Yashesh Patel
  */
 @RestController
+@Slf4j
 @RequestMapping(path = { "/api/v1" }, produces = MediaType.APPLICATION_JSON_VALUE)
 public class TypeController {
-
-	private static final Logger logger = LoggerFactory.getLogger(TypeController.class);
 
 	private final TypeService typeService;
 	private final ModelMapper modelMapper;
@@ -46,14 +46,14 @@ public class TypeController {
 	@ApiResponse(responseCode = "200", description = "List of Types", content = {
 			@Content(mediaType = MediaType.APPLICATION_JSON_VALUE, array = @ArraySchema(schema = @Schema(implementation = TypeDto.class))) })
 	@GetMapping("/types")
-	public ResponseEntity<List<TypeDto>> getTypes() {
-		logger.info("TypeController.getTypes() ==> fetching types");
+	public List<TypeDto> getTypes() {
+		log.info("TypeController.getTypes() ==> fetching types");
 		try {
-			return ResponseEntity
-					.ok(typeService.getAllTypes().stream().map(type -> modelMapper.map(type, TypeDto.class)).toList());
+			return typeService.getAllTypes().stream().map(type -> modelMapper.map(type, TypeDto.class)).collect(Collectors.toList());
 		} catch (Exception e) {
-			logger.error("TypeController.getTypes() ==>Error while fetching types");
-			throw e;
+			log.error("TypeController.getTypes() ==>Error while fetching types");
+			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Error while fetching types. Please try again!");
+			
 		}
 	}
 
